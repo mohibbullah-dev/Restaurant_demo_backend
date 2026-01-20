@@ -6,6 +6,8 @@ const router = express.Router();
 
 // Public: get menu
 router.get("/", async (req, res) => {
+  const filter = {};
+  if (req.query.featured === "true") filter.featured = true;
   const items = await MenuItem.find().sort({ category: 1, createdAt: -1 });
   res.json({ ok: true, items });
 });
