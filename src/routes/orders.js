@@ -1,6 +1,6 @@
 import express from "express";
 import Order from "../models/Order.js";
-import { adminAuth } from "../middleware/adminAuth.js";
+import { requireAuth } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
 });
 
 // Admin: list orders (newest first)
-router.get("/", adminAuth, async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 }).limit(200);
     res.json({ ok: true, orders });
@@ -60,7 +60,7 @@ router.get("/", adminAuth, async (req, res) => {
 });
 
 // Admin: update status
-router.patch("/:id/status", adminAuth, async (req, res) => {
+router.patch("/:id/status", requireAuth, async (req, res) => {
   try {
     const { status } = req.body;
     const allowed = [
