@@ -17,12 +17,14 @@ import authRoutes from "./src/routes/auth.js";
 import menuRoutes from "./src/routes/menu.js";
 import settingsRoutes from "./src/routes/settings.js";
 import adminRoutes from "./src/routes/admin.js";
+import uploadRoutes from "./src/routes/upload.js";
 
 app.use("/api/orders", ordersRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/upload", uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 
