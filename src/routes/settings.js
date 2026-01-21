@@ -6,7 +6,7 @@ const router = express.Router();
 
 async function getSingleton() {
   let s = await Settings.findOne();
-  if (!s) s = await Settings.create({ isOpen: true, notice: "" });
+  if (!s) s = await Settings.create({}); // ✅ let defaults handle all fields
   return s;
 }
 
@@ -18,11 +18,17 @@ router.get("/", async (req, res) => {
 
 // Admin: update settings
 router.put("/", requireAuth, async (req, res) => {
-  const s = await getSingleton();
-  s.isOpen = typeof req.body.isOpen === "boolean" ? req.body.isOpen : s.isOpen;
-  s.notice = typeof req.body.notice === "string" ? req.body.notice : s.notice;
-  await s.save();
-  res.json({ ok: true, settings: s });
+  const { isOpen, notice, deliveryFee, minimumOrder } = req.body;
+
+  const settings = await getSingleton();
+
+  settings.isOpen = isOpen ?? settings.isOpen;
+  settings.notice = notice ?? settings.notice;
+  settings.deliveryFee = Number(deliveryFee) || 0;
+  settings.minimumOrder = Number(minimumOrder) || 0;
+
+  await settings.save();
+  res.json({ ok: true, settings });
 });
 
 export default router;
