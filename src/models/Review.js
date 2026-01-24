@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ReviewSchema = new mongoose.Schema({
   customerName: { type: String, required: true },
@@ -9,4 +9,4 @@ const ReviewSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Review", ReviewSchema);
+export const Review = mongoose.model("Review", ReviewSchema);

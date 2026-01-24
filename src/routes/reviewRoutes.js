@@ -1,6 +1,7 @@
 import express from "express";
+import { Review } from "../models/Review.js";
 const router = express.Router();
-import Review from "../models/Review.js"; // Ensure the .js extension is there
+// import Review from "../models/Review.js"; // Ensure the .js extension is there
 
 // PUBLIC: Get only approved reviews
 router.get("/approved", async (req, res) => {
