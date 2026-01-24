@@ -23,7 +23,8 @@ import menuRoutes from "./src/routes/menu.js";
 import settingsRoutes from "./src/routes/settings.js";
 import adminRoutes from "./src/routes/admin.js";
 import uploadRoutes from "./src/routes/upload.js";
-import reviewRoutes from "./src/routes/reviewRoutes.js"; // 1. Import the new routes
+import reviewRoutes from "./src/routes/reviewRoutes.js";
+import reservationRoutes from "./src/routes/reservationRoutes.js"; // 1. Import the new routes
 
 app.use("/api/orders", ordersRoutes);
 app.use("/api/auth", authRoutes);
@@ -31,7 +32,8 @@ app.use("/api/menu", menuRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/upload", uploadRoutes);
-app.use("/api/reviews", reviewRoutes); // 2. Register the review endpoint
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/reservations", reservationRoutes); // 2. Register the review endpoint
 
 const PORT = process.env.PORT || 5000;
 
