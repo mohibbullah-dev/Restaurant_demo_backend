@@ -1,7 +1,6 @@
 import express from "express";
-import { Review } from "../models/Review.js";
+import Review from "../models/Review.js";
 const router = express.Router();
-// import Review from "../models/Review.js"; // Ensure the .js extension is there
 
 // PUBLIC: Get only approved reviews
 router.get("/approved", async (req, res) => {
@@ -26,7 +25,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// ADMIN: Get ALL reviews (to moderate)
+// ADMIN: Get ALL reviews
 router.get("/admin/all", async (req, res) => {
   try {
     const reviews = await Review.find().sort({ createdAt: -1 });
@@ -41,7 +40,6 @@ router.patch("/admin/approve/:id", async (req, res) => {
   try {
     const review = await Review.findById(req.params.id);
     if (!review) return res.status(404).json({ message: "Review not found" });
-
     review.isApproved = !review.isApproved;
     await review.save();
     res.json(review);
@@ -60,4 +58,4 @@ router.delete("/admin/:id", async (req, res) => {
   }
 });
 
-export default router; // Use export default instead of module.exports
+export default router;
